@@ -54,7 +54,8 @@ router.get("/files", async (req, res) => {
 router.get("/download/:id", async (req, res) => {
   try {
     const id = req.params.id;
-    if (!id) return "file id Required";
+    if (!id) return res.status(400).json({ message: "Invalid file ID" });
+
     const file = await File.findById(id);
     console.log("file:", file.path);
     if (!file) return res.status(404).json({ message: "File not found" });
